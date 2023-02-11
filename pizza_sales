@@ -1,0 +1,8 @@
+#Top 10 most ordered pizza#
+SELECT
+pizza_id,
+COUNT(pizza_id) AS pizza
+FROM `order_details`
+GROUP BY pizza_id
+ORDER BY pizza DESC 
+LIMIT 10;
