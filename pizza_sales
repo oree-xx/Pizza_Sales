@@ -6,7 +6,6 @@ FROM `order_details`
 GROUP BY pizza_id
 ORDER BY pizza DESC 
 LIMIT 10;
----Answer:
 
 
 
@@ -24,16 +23,11 @@ ORDER BY date ASC;
 
 
 3.# What's our average order value#
-SELECT
-   MONTHNAME(date) AS MONTHS, 
+SELECT 
    SUM((D.quantity * P.price)) DIV COUNT(D.pizza_id) AS Average_order_value
-FROM `orders` AS O
-INNER JOIN `order_details` AS D ON 
-O.order_id = D.order_id
+FROM `orders_details` AS D
 INNER JOIN `Pizzas` AS P ON
-P.pizza_id = D.pizza_id
-GROUP BY MONTHS
-ORDER BY date ASC;
+P.pizza_id = D.pizza_id;
 
 
 
@@ -45,7 +39,6 @@ INNER JOIN `pizzas`
 ON order_details.pizza_id=pizzas.pizza_id
 GROUP BY Size
 ORDER BY pizza DESC;
----Answer:Large
 
 
 5.#Most ordered pizza by category#
@@ -58,17 +51,37 @@ INNER JOIN `pizza_types`
 ON pizzas.pizza_type_id=pizza_types.pizza_type_id
 GROUP BY category 
 ORDER BY pizza DESC;
----Answer:
 
 
-#What days do we tend to have more orders#
+
+6.#What days do we tend to have more orders#
 SELECT
 DAYNAME(date)AS Days,
 COUNT(DAYNAME(date)) AS orders
 FROM `orders`
 GROUP BY DAYNAME(date)
 ORDER BY orders DESC;
----Answer:
+
+
+
+
+7.#five best selling pizza#
+SELECT
+pizza_id,
+COUNT(pizza_id) AS pizza
+FROM `order_details`
+GROUP BY pizza_id
+ORDER BY pizza DESC 
+LIMIT 5;
+
+
+
+8.#five worst selling pizza#
+SELECT
+pizza_id,
+COUNT(pizza_id) AS pizza
+FROM `order_details`
+GROUP BY pizza_id
 
 
 
